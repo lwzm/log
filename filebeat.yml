@@ -1,0 +1,53 @@
+filebeat.inputs:
+- type: tcp
+  host: :1111
+  timeout: 86400
+- type: udp
+  host: :1111
+
+processors:
+- drop_fields:
+    fields:
+    - input
+    - agent
+    - host
+    - ecs
+    - log
+
+- decode_json_fields:
+    target: ""
+    fields:
+    - message
+
+- drop_fields:
+    fields:
+    - message
+
+- timestamp:
+    field: ts
+    ignore_missing: true
+    ignore_failure: true
+    layouts:
+    - UNIX
+
+output.elasticsearch:
+  hosts: ${ES:es}
+  indices:
+  - index: "%{[_]}-%{+yyyy.MM.dd}"
+    when.has_fields:
+    - _
+  - index: "${NAME:default}-%{+yyyy.MM.dd}"
+
+setup.ilm.enabled: false
+setup.template:
+  name: whatever
+  pattern: "*"
+  fields: /dev/null
+  append_fields:
+  - name: "@timestamp"
+    type: date
+  settings.index:
+    number_of_replicas: ${REPLICAS:0}
+    translog:
+      durability: async
+      sync_interval: 3s
