@@ -29,6 +29,8 @@ processors:
     ignore_failure: true
     layouts:
     - UNIX
+    - 2006-01-02T15:04:05Z
+    - 2006-01-02 15:04:05
 
 output.elasticsearch:
   hosts: ${ES:es}
