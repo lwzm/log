@@ -1,3 +1,3 @@
-FROM elastic/filebeat:7.12.1
+FROM elastic/filebeat:7.13.3
 EXPOSE 1111 1111/udp
-COPY *.yml /usr/share/filebeat/
+COPY filebeat.yml /usr/share/filebeat/

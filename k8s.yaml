@@ -24,13 +24,13 @@ spec:
         memory: 4000Mi
   containers:
   - name: kibana
-    image: elastic/kibana:7.12.1
+    image: elastic/kibana:7.13.3
     resources: *resources
     env:
     - name: ELASTICSEARCH_HOSTS
       value: http://localhost:9200
   - name: elasticsearch
-    image: elastic/elasticsearch:7.12.1
+    image: elastic/elasticsearch:7.13.3
     resources: *resources
     env:
     - name: discovery.type

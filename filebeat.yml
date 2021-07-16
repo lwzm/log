@@ -33,7 +33,7 @@ processors:
     - 2006-01-02 15:04:05
 
 output.elasticsearch:
-  hosts: ${ES:es}
+  hosts: ${ES:elasticsearch}
   indices:
   - index: "%{[_]}-%{+yyyy.MM.dd}"
     when.has_fields:
